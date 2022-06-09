@@ -1,22 +1,21 @@
-heroku createimport logging
+import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import os
-PORT = int(os.environ.get('PORT', '8443'))
+PORT = int(os.environ.get('PORT', '5000'))
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 
 logger = logging.getLogger(__name__)
-TOKEN = 'YOURTELEGRAMBOTTOKEN'
-
+TOKEN = '5473503787:AAGIXJv5nd2d8sdd35DRLPAxvixiPileMy4'
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
     """Send a message when the command /start is issued."""
     update.message.reply_text('Hi!')
-
+ 
 def help(update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Help!')
@@ -28,13 +27,23 @@ def echo(update, context):
 def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
-
+    """
+@app.route('/setwebhook', methods=['GET', 'POST'])
+def set_webhook():
+    # we use the bot object to link the bot to our app which live
+    # in the link provided by URL
+    s = bot.setWebhook('{URL}{HOOK}'.format(URL=URL, HOOK=TOKEN))
+    # something to let us know things work
+    if s:
+        return "webhook setup ok"
+    else:
+        return "webhook setup failed"
+        """
 def main():
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    TOKEN="5473503787:AAGIXJv5nd2d8sdd35DRLPAxvixiPileMy4"
     updater = Updater(TOKEN, use_context=True)
 
     # Get the dispatcher to register handlers
@@ -51,12 +60,16 @@ def main():
     dp.add_error_handler(error)
 
     # Start the Bot
-    updater.start_webhook(
+    """updater.start_webhook(
         listen="0.0.0.0",
         port=int(PORT),
         url_path=TOKEN,
         webhook_url='https://murmuring-garden-09870.herokuapp.com/' + TOKEN
-    )
+    )"""
+    updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN)
+    updater.bot.setWebhook('https://murmuring-garden-09870.herokuapp.com/' + TOKEN)
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
