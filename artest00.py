@@ -1,4 +1,4 @@
-import logging
+heroku createimport logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import os
 PORT = int(os.environ.get('PORT', '8443'))
@@ -33,6 +33,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
+    TOKEN="5473503787:AAGIXJv5nd2d8sdd35DRLPAxvixiPileMy4"
     updater = Updater(TOKEN, use_context=True)
 
     # Get the dispatcher to register handlers
@@ -53,7 +54,7 @@ def main():
         listen="0.0.0.0",
         port=int(PORT),
         url_path=TOKEN,
-        webhook_url='https://yourherokuappname.herokuapp.com/' + TOKEN
+        webhook_url='https://murmuring-garden-09870.herokuapp.com/' + TOKEN
     )
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
